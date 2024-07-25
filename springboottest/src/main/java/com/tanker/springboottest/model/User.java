@@ -1,4 +1,4 @@
-package com.tanker.springboottest.models;
+package com.tanker.springboottest.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

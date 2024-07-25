@@ -1,6 +1,6 @@
-package com.tanker.springboottest.repositories;
+package com.tanker.springboottest.repository;
 
-import com.tanker.springboottest.models.User;
+import com.tanker.springboottest.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

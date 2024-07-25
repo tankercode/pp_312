@@ -1,25 +1,21 @@
 package com.tanker.springboottest.controller;
 
-import com.tanker.springboottest.models.User;
-import com.tanker.springboottest.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tanker.springboottest.model.User;
+import com.tanker.springboottest.service.UsersServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    private UsersService usersService;
-
-    @Autowired
-    public UserController(UsersService usersService) {
-        this.usersService = usersService;
-    }
+    private final UsersServiceImp usersServiceImp;
 
     @GetMapping
     public String showUsersTable(Model model) {
-        model.addAttribute("users", usersService.findAll());
+        model.addAttribute("users", usersServiceImp.findAll());
         return "main";
     }
 
@@ -30,26 +26,26 @@ public class UserController {
 
     @PostMapping
     public String createNewUser(@ModelAttribute("user") User user) {
-        usersService.save(user);
+        usersServiceImp.save(user);
         return "redirect:/";
     }
 
     @GetMapping(value = "/edit")
     public String showEditUserPage(Model model, @RequestParam("id") int id) {
-        model.addAttribute("user", usersService.findOne(id));
+        model.addAttribute("user", usersServiceImp.findOne(id));
         return "edit";
     }
 
     @PatchMapping("/edit")
     public String update(@ModelAttribute("user") User user, @RequestParam("id") int id) {
-        usersService.update(id, user);
+        usersServiceImp.update(id, user);
         return "redirect:/";
     }
 
     @GetMapping(value = "/delete")
     @DeleteMapping()
     public String delete(@RequestParam("id") int id) {
-        usersService.deleteUserById(id);
+        usersServiceImp.deleteUserById(id);
         return "redirect:/";
     }
 
